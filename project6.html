@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Detail</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+ 
+  <nav class="navbar navbar-expand-lg navbar-light bg-soft-color">
+    <div class="container">
+      <a class="navbar-brand text-highlight" href="#">Logo</a>
+    </div>
+  </nav>
+
+ 
+  <section class="project-detail py-5 bg-primary-color">
+    <div class="container text-white">
+      <h2>Project Titel</h2>
+      <img src="project-detail.jpg" class="img-fluid my-4" alt="Project afbeelding">
+      <p>Gedetailleerde omschrijving van het project.</p>
+      
+      
+      <button onclick="gaNaarHome()" class="btn btn-light mt-4">Terug naar Home</button>
+      <button onclick="gaNaarPortfolio()" class="btn btn-light mt-4 ms-2">Ga naar Portfolio</button>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function gaNaarHome() {
+      window.location.href = 'index.html';
+    }
+
+    function gaNaarPortfolio() {
+      window.location.href = 'portfolio.html';
+    }
+  </script>
+</body>
+</html>
+

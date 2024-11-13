@@ -1,0 +1,16 @@
+
+.bg-primary-color { background-color: #69F5B5; }
+.bg-secondary-color { background-color: #69D8F5; }
+.bg-accent-color { background-color: #69F5E5; }
+.bg-soft-color { background-color: #BBF5EE; }
+.text-highlight { color: #69ACF5; }
+
+.btn-main {
+  background-color: #69F586;
+  color: white;
+  border: none;
+}
+
+.btn-main:hover {
+  background-color: #69F5B5;
+}
