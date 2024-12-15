@@ -3,39 +3,121 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project Detail</title>
+  <title>Project5: Beveiliging</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="style.css"> 
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
- 
   <nav class="navbar navbar-expand-lg navbar-light bg-soft-color">
     <div class="container">
-      <a class="navbar-brand text-highlight" href="#">Logo</a>
+      <a href="index.html">
+        <img src="foto's/Business_Logo_PJ.png" alt="PJ Logo" width="50" height="50">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link text-highlight" href="index.html">Home</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-highlight" href="portfolio.html" id="portfolioDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Portfolio
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="portfolioDropdown">
+              <li><a class="dropdown-item" href="project1.html">Gestructureerd Bekabelen</a></li>
+              <li><a class="dropdown-item" href="project2.html">Netwerkmonitoring</a></li>
+              <li><a class="dropdown-item" href="project3.html">Virtualisatie</a></li>
+              <li><a class="dropdown-item" href="project4.html">Serverimplementatie</a></li>
+              <li><a class="dropdown-item" href="project5.html">Beveiliging</a></li>
+              <li><a class="dropdown-item" href="project6.html">Back-up & Herstel</a></li>
+              <li><a class="dropdown-item" href="portfolio.html">Alle Projecten</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link text-highlight" href="contact.html">Contact</a></li>
+        </ul>
+      </div>
     </div>
   </nav>
 
-  <section class="project-detail py-5 bg-primary-color">
-    <div class="container text-white">
-      <h2>Project Titel</h2>
-      <img src="project-detail.jpg" class="img-fluid my-4" alt="Project afbeelding">
-      <p>Gedetailleerde omschrijving van het project.</p>
-      
-     
-      <button onclick="gaNaarHome()" class="btn btn-light mt-4">Terug naar Home</button>
-      <button onclick="gaNaarPortfolio()" class="btn btn-light mt-4 ms-2">Ga naar Portfolio</button>
-    </div>
-  </section>
+  <div class="content-wrapper">
+    <main class="project-detail py-5 bg-primary-color">
+      <div class="container text-white">
+        <h2>Project 4: Beveiliging</h2>
+        <p>
+          In de moderne wereld is IT-beveiliging belangrijker dan ooit. Tijdens dit project hebben we een uitgebreide beveiligingsoplossing ontworpen en geïmplementeerd om zowel netwerken als gegevens te beschermen tegen dreigingen.
+        </p>
+        <p>
+          Onze aanpak omvatte het installeren van geavanceerde firewalls, het configureren van intrusion detection systems (IDS) en het implementeren van versleutelde VPN-tunnels voor veilige externe toegang. Daarnaast hebben we multi-factor authenticatie (MFA) toegevoegd om ongeoorloofde toegang te voorkomen.
+        </p>
+        <p>
+          Het project richtte zich ook op bewustzijnstraining voor werknemers, waarmee menselijke fouten als risicofactor aanzienlijk werden verminderd. Samen met geautomatiseerde monitoringtools hebben we een allesomvattende oplossing geleverd die bedrijven beschermt tegen zowel interne als externe dreigingen.
+        </p>
+      </div>
+      <hr class="mb-3 p-3">
+
+      <section id="slider" class="container">
+        <div class="row">
+          <!-- Tekst boven de carousel -->
+          <div class="col-12 mb-4">
+            <h3 class="text-center text-white">Galerij</h3>
+          </div>
+
+          <!-- Carousel -->
+          <div class="col-12">
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+              </div>
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <img src="assets/project4/firewall.png" class="d-block w-100" alt="Firewall-configuratie">
+                  <div class="carousel-caption d-none d-sm-block">
+                    <h4 class="text-uppercase fs-5 fw-bolder pt-3 shadow">Firewall</h4>
+                    <p class="shadow">De eerste verdedigingslinie tegen cyberdreigingen.</p>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <img src="assets/project4/mfa.png" class="d-block w-100" alt="Multi-factor authenticatie">
+                  <div class="carousel-caption d-none d-sm-block">
+                    <h4 class="text-uppercase fs-5 fw-bolder pt-3 shadow">Multi-factor Authenticatie</h4>
+                    <p class="shadow">Sterke toegangsbescherming voor gebruikers.</p>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <img src="assets/project4/vpn.png" class="d-block w-100" alt="VPN-configuratie">
+                  <div class="carousel-caption d-none d-sm-block">
+                    <h4 class="text-uppercase fs-5 fw-bolder pt-3 shadow">VPN</h4>
+                    <p class="shadow">Veilige externe verbindingen.</p>
+                  </div>
+                </div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <aside class="bg-light p-4">
+      <div class="container">
+        <h3>Meer Informatie</h3>
+        <ul>
+          <li><a href="portfolio.html">Bekijk vergelijkbare projecten</a></li>
+          <li><a href="contact.html">Neem contact op voor meer details</a></li>
+        </ul>
+      </div>
+    </aside>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    function gaNaarHome() {
-      window.location.href = 'index.html'; 
-    }
-
-    function gaNaarPortfolio() {
-      window.location.href = 'portfolio.html';
-    }
-  </script>
 </body>
 </html>

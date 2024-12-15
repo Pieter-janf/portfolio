@@ -14,3 +14,24 @@
 .btn-main:hover {
   background-color: #69F5B5;
 }
+.nav-link {
+  font-weight: normal;
+  color: inherit;
+  text-decoration: none;
+}
+
+.nav-link.active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+.content-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+main {
+  flex: 3;
+}
+aside {
+  flex: 1;
+}
