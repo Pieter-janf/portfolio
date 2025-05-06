@@ -1,88 +1,138 @@
 <?php
-// Contactformulier verwerking
+// Contactformulier naar GitHub Issues verwerker
 
-// Stel variabelen in voor formulier
-$message_sent = false;
-$errors = [];
+// Stel CORS headers in (pas aan naar jouw domein in productie)
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Allow-Headers: Content-Type");
+header("Content-Type: application/json");
 
-// Controleer of het formulier is ingediend
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+// GitHub configuratie - VUL HIER JOUW GEGEVENS IN
+$github_username = "Pieter-janf"; // Jouw GitHub gebruikersnaam
+$github_repo = "Portfolio-contact"; // Jouw repository naam
+$github_token = "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"; // Jouw GitHub token (veilig omdat dit nooit naar client wordt gestuurd)
+
+// Controleer of het een POST verzoek is
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Haal de POST data op (als JSON verstuurd)
+    $json_data = file_get_contents("php://input");
+    $data = json_decode($json_data, true);
+
+    // Als de data direct als POST formulier is verstuurd
+    if (!$data && isset($_POST)) {
+        $data = $_POST;
+    }
+
+    // Valideer de input
+    if (!isset($data['name']) || !isset($data['email']) || !isset($data['subject']) || !isset($data['message'])) {
+        http_response_code(400);
+        echo json_encode(["success" => false, "message" => "Niet alle vereiste velden zijn ingevuld"]);
+        exit;
+    }
+
+    // Anti-spam controle
+    if (isset($data['honeypot']) && !empty($data['honeypot'])) {
+        // Zend een "success" bericht terug om de spambot te misleiden
+        echo json_encode(["success" => true, "message" => "Bericht ontvangen"]);
+        exit;
+    }
+
+    // Sanitize de input data
+    $name = htmlspecialchars($data['name']);
+    $email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
+    $subject = htmlspecialchars($data['subject']);
+    $message = htmlspecialchars($data['message']);
+
+    // Valideer e-mail
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        http_response_code(400);
+        echo json_encode(["success" => false, "message" => "Ongeldig e-mailadres"]);
+        exit;
+    }
+
+    // Maak de GitHub issue body
+    $issue_body = <<<EOT
+## Contact Formulier Bericht
+**Van:** {$name}
+**Email:** {$email}
+
+**Bericht:**
+{$message}
+
+---
+*Dit issue werd automatisch aangemaakt via het contactformulier op je portfolio website.*
+EOT;
+
+    // GitHub API data
+    $github_data = [
+        "title" => "Contact: " . $subject,
+        "body" => $issue_body,
+        "labels" => ["contact", "website"]
+    ];
+
+    // Aanroepen van de GitHub API
+    $api_url = "https://api.github.com/repos/{$github_username}/{$github_repo}/issues";
     
-    // Anti-spam check (honeypot)
-    if (!empty($_POST['honeypot'])) {
-        die("Spam gedetecteerd!");
+    // Initialiseer cURL
+    $ch = curl_init($api_url);
+    
+    // Stel de cURL opties in
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($github_data));
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        "User-Agent: PHP-GitHub-Contact-Form",
+        "Authorization: token {$github_token}",
+        "Accept: application/vnd.github.v3+json",
+        "Content-Type: application/json"
+    ]);
+    
+    // Voer het verzoek uit
+    $response = curl_exec($ch);
+    $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    
+    // Controleer op fouten
+    if (curl_errno($ch)) {
+        http_response_code(500);
+        echo json_encode([
+            "success" => false, 
+            "message" => "Er is een fout opgetreden bij het verzenden van je bericht"
+        ]);
+        
+        // Log de fout (alleen in ontwikkelomgeving)
+        error_log("GitHub API fout: " . curl_error($ch));
+        
+        curl_close($ch);
+        exit;
     }
     
-    // Valideer naam
-    if (empty($_POST['name'])) {
-        $errors[] = "Naam is verplicht";
-    } else {
-        $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
-    }
+    // Sluit de cURL verbinding
+    curl_close($ch);
     
-    // Valideer email
-    if (empty($_POST['email'])) {
-        $errors[] = "Email is verplicht";
+    // Controleer of het verzoek succesvol was
+    if ($http_code >= 200 && $http_code < 300) {
+        // Succes - stuur bericht terug
+        echo json_encode([
+            "success" => true, 
+            "message" => "Bedankt voor je bericht! Ik neem zo snel mogelijk contact met je op."
+        ]);
     } else {
-        $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $errors[] = "Ongeldig email formaat";
+        // Fout - stuur foutmelding terug
+        http_response_code($http_code);
+        echo json_encode([
+            "success" => false, 
+            "message" => "Er is een fout opgetreden bij het verzenden van je bericht"
+        ]);
+        
+        // Log de fout voor debugging
+        $response_data = json_decode($response, true);
+        if ($response_data && isset($response_data['message'])) {
+            error_log("GitHub API foutmelding: " . $response_data['message']);
         }
     }
-    
-    // Valideer onderwerp
-    if (empty($_POST['subject'])) {
-        $errors[] = "Onderwerp is verplicht";
-    } else {
-        $subject = filter_var($_POST['subject'], FILTER_SANITIZE_STRING);
-    }
-    
-    // Valideer bericht
-    if (empty($_POST['message'])) {
-        $errors[] = "Bericht is verplicht";
-    } else {
-        $message = htmlspecialchars($_POST['message']);
-    }
-    
-    // Als er geen fouten zijn, verstuur het bericht
-    if (empty($errors)) {
-        // Ontvanger email instellen - verander naar jouw email
-        $to = "pjfockaert@gmail.com";
-        
-        // Email headers instellen
-        $headers = "From: " . $name . " <" . $email . ">\r\n";
-        $headers .= "Reply-To: " . $email . "\r\n";
-        $headers .= "MIME-Version: 1.0\r\n";
-        $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
-        
-        // Email inhoud
-        $email_content = "
-        <html>
-        <head>
-            <title>Nieuw bericht van je portfolio</title>
-        </head>
-        <body>
-            <h2>Je hebt een nieuw bericht ontvangen</h2>
-            <p><strong>Naam:</strong> $name</p>
-            <p><strong>Email:</strong> $email</p>
-            <p><strong>Onderwerp:</strong> $subject</p>
-            <p><strong>Bericht:</strong></p>
-            <p>$message</p>
-        </body>
-        </html>
-        ";
-        
-        // Verstuur email
-        $success = mail($to, "Nieuw bericht: $subject", $email_content, $headers);
-        
-        if ($success) {
-            $message_sent = true;
-            // Redirect om dubbele form submission te voorkomen
-            header('Location: index.php?contact=success#contact');
-            exit;
-        } else {
-            $errors[] = "Er is een probleem opgetreden bij het versturen van je bericht. Probeer het later opnieuw.";
-        }
-    }
+} else {
+    // Als het geen POST verzoek is
+    http_response_code(405);
+    echo json_encode(["success" => false, "message" => "Alleen POST methode is toegestaan"]);
 }
 ?>
