@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pieter-Jan Fockaert | Systeem- & Netwerkbeheer Student</title>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Bootstrap Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #0d6efd;
+      --primary-dark: #0a58ca;
+      --secondary: #6c757d;
+      --dark: #212529;
+      --light: #f8f9fa;
+      --success: #198754;
+      --gray-100: #f8f9fa;
+      --gray-200: #e9ecef;
+      --gray-300: #dee2e6;
+      --gray-800: #343a40;
+      --transition: all 0.3s ease;
+      --border-radius: 8px;
+      --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Global Styles */
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 76px;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #444;
+      line-height: 1.7;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    
+    .display-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+    }
+    
+    .section-padding {
+      padding: 100px 0;
+    }
+    
+    .section-title {
+      margin-bottom: 50px;
+    }
+    
+    .section-title h2 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      position: relative;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+    
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -12px;
+      width: 50px;
+      height: 4px;
+      background-color: var(--primary);
+    }
+    
+    .section-title.centered {
+      text-align: center;
+    }
+    
+    .section-title.centered h2::after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    /* Navbar */
+    .navbar {
+      transition: var(--transition);
+      padding: 12px 0;
+    }
+    
+    .navbar.scrolled {
+      background-color: white;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      padding: 8px 0;
+    }
+    
+    .navbar-brand {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 24px;
+      color: var(--primary);
+    }
+    
+    .nav-link {
+      font-weight: 500;
+      color: var(--dark) !important;
+      padding: 8px 16px !important;
+      transition: var(--transition);
+    }
+    
+    .nav-link:hover, 
+    .nav-link.active {
+      color: var(--primary) !important;
+    }
+    
+    .social-link {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--gray-200);
+      border-radius: 50%;
+      color: var(--dark);
+      margin-left: 8px;
+      transition: var(--transition);
+    }
+    
+    .social-link:hover {
+      background-color: var(--primary);
+      color: white;
+    }
+    
+    /* Hero Section */
+    .hero-section {
+      padding: 180px 0 100px;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%230d6efd' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    
+    .hero-content h5 {
+      color: var(--primary);
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+    
+    .hero-content h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 25px;
+    }
+    
+    .hero-content p {
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+      max-width: 500px;
+    }
+    
+    .typing-text {
+      color: var(--primary);
+      border-right: 3px solid var(--primary);
+      padding-right: 8px;
+      white-space: nowrap;
+      animation: typing 3s steps(20, end) infinite,
+                blinking 0.75s step-end infinite;
+      overflow: hidden;
+    }
+    
+    @keyframes typing {
+      from { width: 0 }
+      50% { width: 100% }
+      to { width: 0 }
+    }
+    
+    @keyframes blinking {
+      from, to { border-color: transparent }
+      50% { border-color: var(--primary) }
+    }
+    
+    .hero-img {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .hero-img img {
+      border-radius: 20px;
+      box-shadow: var(--box-shadow);
+    }
+    
+    .tech-badge {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      background-color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--box-shadow);
+    }
+    
+    .tech-badge i {
+      font-size: 32px;
+      color: var(--primary);
+    }
+    
+    .badge-1 {
+      top: -20px;
+      left: -20px;
+    }
+    
+    .badge-2 {
+      bottom: 40px;
+      right: -20px;
+    }
+    
+    .badge-3 {
+      bottom: -20px;
+      left: 30%;
+    }
+    
+    /* About Section */
+    .about-content h3 {
+      margin-bottom: 20px;
+    }
+    
+    .profile-info {
+      margin-bottom: 30px;
+    }
+    
+    .info-item {
+      display: flex;
+      margin-bottom: 15px;
+    }
+    
+    .info-title {
+      min-width: 130px;
+      font-weight: 600;
+    }
+    
+    .skill-item {
+      margin-bottom: 20px;
+    }
+    
+    .skill-name {
+      font-weight: 500;
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .progress {
+      height: 8px;
+      border-radius: 10px;
+      background-color: var(--gray-200);
+    }
+    
+    .progress-bar {
+      border-radius: 10px;
+      background-color: var(--primary);
+    }
+    
+    /* Services Section */
+    .services-section {
+      background-color: var(--gray-100);
+    }
+    
+    .service-card {
+      background-color: white;
+      border-radius: var(--border-radius);
+      padding: 30px;
+      margin-bottom: 30px;
+      transition: var(--transition);
+      height: 100%;
+      box-shadow: var(--box-shadow);
+    }
+    
+    .service-card:hover {
+      transform: translateY(-10px);
+    }
+    
+    .service-icon {
+      width: 70px;
+      height: 70px;
+      background-color: rgba(13, 110, 253, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 25px;
+    }
+    
+    .service-icon i {
+      font-size: 30px;
+      color: var(--primary);
+    }
+    
+    .service-card h4 {
+      margin-bottom: 15px;
+    }
+    
+    /* Projects Section */
+    .project-card {
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--box-shadow);
+      margin-bottom: 30px;
+      position: relative;
+    }
+    
+    .project-img {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .project-img img {
+      transition: var(--transition);
+    }
+    
+    .project-card:hover .project-img img {
+      transform: scale(1.1);
+    }
+    
+    .project-content {
+      padding: 25px;
+      background-color: white;
+    }
+    
+    .project-category {
+      display: inline-block;
+      background-color: rgba(13, 110, 253, 0.1);
+      color: var(--primary);
+      padding: 5px 15px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+    
+    .project-content h4 {
+      margin-bottom: 10px;
+    }
+    
+    .project-content p {
+      color: var(--secondary);
+      margin-bottom: 20px;
+    }
+    
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      color: var(--primary);
+      font-weight: 500;
+    }
+    
+    .project-link i {
+      margin-left: 5px;
+      transition: var(--transition);
+    }
+    
+    .project-link:hover i {
+      transform: translateX(5px);
+    }
+    
+    /* Education Section */
+    .education-section {
+      background-color: var(--gray-100);
+    }
+    
+    .timeline {
+      position: relative;
+    }
+    
+    .timeline::before {
+      content: '';
+      position: absolute;
+      width: 2px;
+      height: 100%;
+      background-color: var(--gray-300);
+      left: 29px;
+      top: 0;
+    }
+    
+    .timeline-item {
+      position: relative;
+      padding-left: 70px;
+      margin-bottom: 40px;
+    }
+    
+    .timeline-dot {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: white;
+      border: 4px solid var(--primary);
+      border-radius: 50%;
+      left: 20px;
+      top: 0;
+      z-index: 1;
+    }
+    
+    .timeline-date {
+      display: inline-block;
+      background-color: var(--primary);
+      color: white;
+      padding: 3px 15px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 15px;
+    }
+    
+    .timeline-content {
+      background-color: white;
+      padding: 25px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+    }
+    
+    .timeline-content h4 {
+      margin-bottom: 10px;
+    }
+    
+    .timeline-content h5 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: var(--primary);
+    }
+    
+    /* Contact Section */
+    .contact-info-box {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    
+    .contact-icon {
+      width: 60px;
+      height: 60px;
+      background-color: rgba(13, 110, 253, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    
+    .contact-icon i {
+      font-size: 24px;
+      color: var(--primary);
+    }
+    
+    .contact-info h4 {
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+    
+    .contact-form .form-control {
+      height: 52px;
+      padding: 10px 20px;
+      border: 1px solid var(--gray-300);
+      border-radius: var(--border-radius);
+      margin-bottom: 20px;
+    }
+    
+    .contact-form textarea.form-control {
+      height: 140px;
+      padding: 15px 20px;
+    }
+    
+    .contact-form .form-control:focus {
+      box-shadow: none;
+      border-color: var(--primary);
+    }
+    
+    .btn-custom {
+      padding: 12px 30px;
+      font-weight: 500;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      transition: var(--transition);
+    }
+    
+    .btn-custom:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
+    }
+    
+    /* Footer */
+    .footer {
+      background-color: var(--dark);
+      padding: 30px 0;
+      color: white;
+    }
+    
+    .footer-social {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .footer-social a {
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      transition: var(--transition);
+    }
+    
+    .footer-social a:hover {
+      background-color: var(--primary);
+    }
+    
+    /* Certificates */
+    .certificate-card {
+      background-color: white;
+      border-radius: var(--border-radius);
+      padding: 20px;
+      margin-bottom: 30px;
+      box-shadow: var(--box-shadow);
+      height: 100%;
+      transition: var(--transition);
+    }
+    
+    .certificate-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .certificate-logo {
+      width: 70px;
+      height: 70px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--gray-100);
+      border-radius: 50%;
+    }
+    
+    .certificate-logo i {
+      font-size: 30px;
+      color: var(--primary);
+    }
+    
+    /* Technologies */
+    .tech-section {
+      background-color: var(--gray-100);
+    }
+    
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 20px;
+    }
+    
+    .tech-item {
+      background-color: white;
+      border-radius: var(--border-radius);
+      padding: 20px;
+      text-align: center;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+    }
+    
+    .tech-item:hover {
+      transform: translateY(-5px);
+    }
+    
+    .tech-item i {
+      font-size: 36px;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+    
+    .tech-item p {
+      font-size: 14px;
+      font-weight: 500;
+      margin: 0;
+    }
+    
+    /* Back to top button */
+    .back-to-top {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      width: 40px;
+      height: 40px;
+      background-color: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 99;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+    }
+    
+    .back-to-top.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .back-to-top:hover {
+      background-color: var(--primary-dark);
+    }
+    
+    /* Responsive */
+    @media (max-width: 991px) {
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero-section {
+        padding: 140px 0 80px;
+      }
+    }
+    
+    @media (max-width: 767px) {
+      .section-padding {
+        padding: 70px 0;
+      }
+      
+      .hero-content {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      
+      .hero-content p {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      
+      .section-title {
+        text-align: center;
+      }
+      
+      .section-title h2::after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#home">Pieter-Jan</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">Over mij</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#services">Specialisaties</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#education">Opleiding</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">Contact</a>
+          </li>
+        </ul>
+        <div class="ms-3 d-none d-lg-flex">
+          <a href="https://github.com/" target="_blank" class="social-link">
+            <i class="bi bi-github"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/pieter-jan-fockaert-a88b57109/" target="_blank" class="social-link">
+            <i class="bi bi-linkedin"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-7"> <!-- Maak de tekst kolom breder -->
+          <div class="hero-content">
+            <h5>Hello, welkom op mijn portfolio</h5>
+            <h1 class="display-title">Ik ben Pieter-Jan Fockaert</h1>
+            <h2 class="typing-text">Student Systeem en netwerkbeheer</h2>
+            <p>Gedreven student systeem- en netwerkbeheer met passie voor IT-infrastructuren, netwerken en cybersecurity.</p>
+            
+          </div>
+        </div>
+        <div class="col-md-5"> <!-- Maak de foto kolom smaller -->
+          <div class="hero-img text-center">
+            <!-- Pas de grootte van de afbeelding aan door middel van een container div -->
+            <div style="max-width: 350px; margin: 0 auto;"> <!-- Container met max breedte van 350px -->
+              <img src="20230325_203631 (1).jpg" alt="Pieter-Jan" class="img-fluid rounded">
+            </div>
+            <div class="tech-badge badge-1">
+              <i class="bi bi-hdd-network"></i>
+            </div>
+            <div class="tech-badge badge-2">
+              <i class="bi bi-windows"></i>
+            </div>
+            <div class="tech-badge badge-3">
+              <i class="bi bi-shield-lock"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="section-padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 mb-4 mb-lg-0">
+          <div class="section-title">
+            <h2>Over Mij</h2>
+          </div>
+          <div class="about-content">
+            <h3>Student Systeem- & Netwerkbeheer met passie voor IT</h3>
+            <p>Ik ben Pieter-Jan, een enthousiaste IT-student met een specialisatie in systeem- en netwerkbeheer. Mijn passie ligt bij het ontwikkelen en onderhouden van robuuste, veilige IT-infrastructuren die bedrijven helpen efficiënter te werken.</p>
+            <p>Tijdens mijn opleiding heb ik praktische ervaring opgedaan met diverse netwerktechnologieën, besturingssystemen en security-oplossingen. Ik ben altijd op zoek naar nieuwe uitdagingen en mogelijkheden om mijn kennis te vergroten.</p>
+            
+            <div class="profile-info">
+              <div class="info-item">
+                <span class="info-title">Naam:</span>
+                <span>Pieter-Jan Fockaert</span>
+              </div>
+              <div class="info-item">
+                <span class="info-title">Geboortedatum:</span>
+                <span>20 Juli 1993</span>
+              </div>
+              <div class="info-item">
+                <span class="info-title">Email:</span>
+                <span>pjfockaert@gmail.com</span>
+              </div>
+              <div class="info-item">
+                <span class="info-title">Woonplaats:</span>
+                <span>Edegem, België</span>
+              </div>
+              <div class="info-item">
+                <span class="info-title">Studie:</span>
+                <span>Graduaat Systeem- en Netwerkbeheer</span>
+              </div>
+            </div>
+            
+            <a href="#" class="btn btn-custom">Download CV</a>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <h3 class="mb-4">Mijn vaardigheden</h3>
+          <div class="skill-item">
+            <div class="skill-name">
+              <span>Netwerkbeheer</span>
+              <span>85%</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" style="width: 85%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name">
+              <span>Windows Server</span>
+              <span>90%</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" style="width: 90%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name">
+              <span>Linux</span>
+              <span>75%</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" style="width: 75%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name">
+              <span>Virtualisatie (VMware, Hyper-V)</span>
+              <span>80%</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" style="width: 80%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name">
+              <span>Cybersecurity</span>
+              <span>70%</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" style="width: 70%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name">
+              <span>Python</span>
+              <span>50%</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" style="width: 65%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name">
+              <span>PowerShell/Bash Scripting</span>
+              <span>75%</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" style="width: 75%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="services-section section-padding">
+    <div class="container">
+      <div class="section-title centered">
+        <h2>Mijn Specialisaties</h2>
+        <p>Vakgebieden waarin ik me specialiseer en doorheen mijn opleiding al ervaring heb opgebouwd.</p>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="bi bi-hdd-network"></i>
+            </div>
+            <h4>Netwerkbeheer</h4>
+            <p>Ontwerp, implementatie en beheer van bedrijfsnetwerken. Ervaring met Cisco-apparatuur, routing, switching en netwerkbeveiliging.</p>
+          </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="bi bi-windows"></i>
+            </div>
+            <h4>Windows Server</h4>
+            <p>Configuratie en beheer van Windows Server-omgevingen, Active Directory, Group Policy, en andere Microsoft-diensten.</p>
+          </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="bi bi-ubuntu"></i>
+            </div>
+            <h4>Linux</h4>
+            <p>Installatie en configuratie van Linux-servers, shellscripting, en beheer van diensten zoals Apache, NGINX en MySQL.</p>
+          </div>
+        </div>
+              
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="bi bi-shield-lock"></i>
+            </div>
+            <h4>Cybersecurity</h4>
+            <p>Basiskennis van cybersecurity-principes, firewalls, VPN's en beveiligingsprotocollen.</p>
+          </div>
+        
+        </div>
+
+
+<!-- Education Section -->
+<section id="education" class="education-section section-padding">
+  <div class="container">
+    <div class="section-title centered">
+      <h2>Mijn Opleiding</h2>
+      <p>Mijn academische achtergrond en specialisaties in IT.</p>
+    </div>
+    
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">2024 - Heden</div>
+            <div class="timeline-content">
+              <h4>Graduaat Systeem- en Netwerkbeheer</h4>
+              <h5>AP Hogeschool Antwerpen</h5>
+              <p>Specialisatie in systeembeheer, netwerkinfrastructuur, virtualisatie en cloud computing. Focus op praktische vaardigheden voor moderne IT-omgevingen.</p>
+              <ul class="mt-3">
+                <li>Windows Server administratie en configuratie</li>
+                <li>Linux systeembeheer</li>
+                <li>Netwerken en routing</li>
+                <li>Cloud services en virtualisatie</li>
+                <li>Cybersecurity principes</li>
+              </ul>
+            </div>
+          </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section met werkend formulier -->
+<section id="contact" class="section-padding">
+  <div class="container">
+    <div class="section-title centered">
+      <h2>Neem Contact Op</h2>
+      <p>Heeft u een vraag of wilt u samenwerken? Stuur mij een bericht.</p>
+    </div>
+    
+    <div class="row">
+      <div class="col-lg-4 mb-5 mb-lg-0">
+        <div class="contact-info-box">
+          <div class="contact-icon">
+            <i class="bi bi-geo-alt"></i>
+          </div>
+          <div class="contact-info">
+            <h4>Locatie</h4>
+            <p>Edegem, Antwerpen, België</p>
+          </div>
+        </div>
+        
+        <div class="contact-info-box">
+          <div class="contact-icon">
+            <i class="bi bi-envelope"></i>
+          </div>
+          <div class="contact-info">
+            <h4>Email</h4>
+            <p>pjfockaert@gmail.com</p>
+          </div>
+        </div>
+        
+        <div class="contact-info-box">
+          <div class="contact-icon">
+            <i class="bi bi-phone"></i>
+          </div>
+          <div class="contact-info">
+            <h4>Telefoon</h4>
+            <p>+32 470 12 34 56</p>
+          </div>
+        </div>
+        
+        <div class="mt-5">
+          <h5 class="mb-4">Volg mij op sociale media</h5>
+          <div class="d-flex gap-3">
+            <a href="#" class="social-link">
+              <i class="bi bi-linkedin"></i>
+            </a>
+            <a href="#" class="social-link">
+              <i class="bi bi-github"></i>
+            </a>
+            <a href="#" class="social-link">
+              <i class="bi bi-twitter"></i>
+            </a>
+            <a href="#" class="social-link">
+              <i class="bi bi-instagram"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-8">
+        <!-- Voeg feedback meldingen toe -->
+        <div id="contact-message" class="alert d-none mb-4"></div>
+        
+        <!-- Formulier met gevalideerde velden en AJAX verwerking -->
+        <form id="contactForm" class="contact-form" method="post" action="{{ url_for('contact') }}">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" name="name" id="name" class="form-control" placeholder="Uw naam" required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="email" name="email" id="email" class="form-control" placeholder="Uw email" required>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="text" name="subject" id="subject" class="form-control" placeholder="Onderwerp" required>
+          </div>
+          <div class="form-group">
+            <textarea name="message" id="message" class="form-control" rows="5" placeholder="Uw bericht" required></textarea>
+          </div>
+          <!-- Anti-spam veld (hidden) -->
+          <input type="text" name="honeypot" id="honeypot" style="display: none;">
+          <button type="submit" class="btn btn-custom">Verstuur Bericht</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JavaScript voor formulierverwerking -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const contactForm = document.getElementById('contactForm');
+  const contactMessage = document.getElementById('contact-message');
+  
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Controleer honeypot (anti-spam)
+      if (document.getElementById('honeypot').value !== '') {
+        return false;
+      }
+      
+      // Verzamel formuliergegevens
+      const formData = new FormData(contactForm);
+      
+      // AJAX verzoek naar de server
+      fetch('{{ url_for("contact") }}', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Netwerkprobleem');
+        }
+        return response.text();
+      })
+      .then(data => {
+        // Toon succesbericht
+        contactMessage.classList.remove('d-none', 'alert-danger');
+        contactMessage.classList.add('alert-success');
+        contactMessage.innerHTML = 'Bedankt voor je bericht! Ik neem zo snel mogelijk contact met je op.';
+        
+        // Reset het formulier
+        contactForm.reset();
+        
+        // Scroll naar het bericht
+        contactMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      })
+      .catch(error => {
+        // Toon foutmelding
+        contactMessage.classList.remove('d-none', 'alert-success');
+        contactMessage.classList.add('alert-danger');
+        contactMessage.innerHTML = 'Er is een probleem opgetreden bij het verzenden van je bericht. Probeer het later opnieuw of neem rechtstreeks contact op via email.';
+        
+        // Scroll naar het bericht
+        contactMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    });
+  }
+});
+</script>
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <p>&copy; <span id="current-year">2023</span> Pieter-Jan Fockaert. Alle rechten voorbehouden.</p>
+      </div>
+      <div class="col-md-6 text-md-end">
+        <div class="footer-social">
+          <a href="#"><i class="bi bi-linkedin"></i></a>
+          <a href="#"><i class="bi bi-github"></i></a>
+          <a href="#"><i class="bi bi-twitter"></i></a>
+          <a href="#"><i class="bi bi-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to top button -->
+<a href="#" class="back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+<!-- Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom JS -->
+<script>
+  // Sticky Navbar
+  window.addEventListener('scroll', function() {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+  
+  // Back to top button
+  window.addEventListener('scroll', function() {
+    const backToTop = document.querySelector('.back-to-top');
+    if (window.scrollY > 300) {
+      backToTop.classList.add('active');
+    } else {
+      backToTop.classList.remove('active');
+    }
+  });
+  
+  // Set current year in footer
+  document.getElementById('current-year').textContent = new Date().getFullYear();
+  
+  // Smooth scrolling for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      const targetId = this.getAttribute('href');
+      if (targetId === '#') return;
+      
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        window.scrollTo({
+          top: targetElement.offsetTop - 70,
+          behavior: 'smooth'
+        });
+        
+        // Update active nav link
+        document.querySelectorAll('.nav-link').forEach(link => {
+          link.classList.remove('active');
+        });
+        this.classList.add('active');
+      }
+    });
+  });
+  
+  // Set active nav link on scroll
+  window.addEventListener('scroll', function() {
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    let currentSection = '';
+    
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 100;
+      const sectionHeight = section.offsetHeight;
+      
+      if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+        currentSection = section.getAttribute('id');
+      }
+    });
+    
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${currentSection}`) {
+        link.classList.add('active');
+      }
+    });
+  });
+</script>
