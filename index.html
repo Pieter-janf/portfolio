@@ -932,7 +932,7 @@
   </div>
 </section>
 
-<!-- Contact Section met werkend formulier -->
+<!-- Contact Section met GitHub Issue integratie -->
 <section id="contact" class="section-padding">
   <div class="container">
     <div class="section-title centered">
@@ -992,11 +992,11 @@
       </div>
       
       <div class="col-lg-8">
-        <!-- Voeg feedback meldingen toe -->
+        <!-- Feedback meldingen -->
         <div id="contact-message" class="alert d-none mb-4"></div>
         
-        <!-- Formulier met gevalideerde velden en AJAX verwerking -->
-        <form id="contactForm" class="contact-form" method="post" action="{{ url_for('contact') }}">
+        <!-- Formulier met GitHub Issues integratie -->
+        <form id="contactForm" class="contact-form">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
@@ -1024,7 +1024,7 @@
   </div>
 </section>
 
-<!-- JavaScript voor formulierverwerking -->
+<!-- JavaScript voor GitHub Issues integratie -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const contactForm = document.getElementById('contactForm');
@@ -1040,36 +1040,89 @@ document.addEventListener('DOMContentLoaded', function() {
       }
       
       // Verzamel formuliergegevens
-      const formData = new FormData(contactForm);
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
       
-      // AJAX verzoek naar de server
-      fetch('{{ url_for("contact") }}', {
+      // Toon loading state
+      const submitButton = contactForm.querySelector('button[type="submit"]');
+      const originalButtonText = submitButton.innerHTML;
+      submitButton.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Verzenden...';
+      submitButton.disabled = true;
+      
+      // GitHub repository informatie
+      const repo_owner = 'JOUW_GITHUB_USERNAME'; // Verander naar je GitHub gebruikersnaam
+      const repo_name = 'JOUW_REPOSITORY_NAAM'; // Verander naar de naam van je repository
+      const token = 'JOUW_GITHUB_TOKEN'; // Verander naar je GitHub Personal Access Token
+      
+      // GitHub issue body maken
+      const issueBody = `
+## Contact Formulier Bericht
+**Van:** ${name}
+**Email:** ${email}
+
+**Bericht:**
+${message}
+
+---
+*Dit issue werd automatisch aangemaakt via het contactformulier op je portfolio website.*
+`;
+      
+      // Issue data
+      const issueData = {
+        title: `Contact: ${subject}`,
+        body: issueBody,
+        labels: ['contact', 'website']
+      };
+      
+      // GitHub API URL
+      const apiUrl = `https://api.github.com/repos/${repo_owner}/${repo_name}/issues`;
+      
+      // GitHub API aanroepen via Fetch
+      fetch(apiUrl, {
         method: 'POST',
-        body: formData
+        headers: {
+          'Accept': 'application/vnd.github+json',
+          'Authorization': `token ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(issueData)
       })
       .then(response => {
         if (!response.ok) {
-          throw new Error('Netwerkprobleem');
+          throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        return response.text();
+        return response.json();
       })
       .then(data => {
-        // Toon succesbericht
+        // Success - toon bericht en reset formulier
         contactMessage.classList.remove('d-none', 'alert-danger');
         contactMessage.classList.add('alert-success');
-        contactMessage.innerHTML = 'Bedankt voor je bericht! Ik neem zo snel mogelijk contact met je op.';
+        contactMessage.innerHTML = `
+          <h5><i class="bi bi-check-circle me-2"></i>Bericht verzonden!</h5>
+          <p>Bedankt voor je bericht! Ik zal zo snel mogelijk contact met je opnemen.</p>
+        `;
         
-        // Reset het formulier
         contactForm.reset();
         
-        // Scroll naar het bericht
-        contactMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // Log issue URL (voor debugging)
+        console.log('GitHub Issue aangemaakt:', data.html_url);
       })
       .catch(error => {
-        // Toon foutmelding
+        // Error - toon foutmelding
         contactMessage.classList.remove('d-none', 'alert-success');
         contactMessage.classList.add('alert-danger');
-        contactMessage.innerHTML = 'Er is een probleem opgetreden bij het verzenden van je bericht. Probeer het later opnieuw of neem rechtstreeks contact op via email.';
+        contactMessage.innerHTML = `
+          <h5><i class="bi bi-exclamation-triangle me-2"></i>Er is een fout opgetreden</h5>
+          <p>Je bericht kon niet worden verzonden. Probeer het later opnieuw of neem rechtstreeks contact op via email.</p>
+        `;
+        console.error('Fout bij aanmaken GitHub Issue:', error);
+      })
+      .finally(() => {
+        // Reset button state
+        submitButton.innerHTML = originalButtonText;
+        submitButton.disabled = false;
         
         // Scroll naar het bericht
         contactMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1077,102 +1130,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
-</script>
-<!-- Footer -->
-<footer class="footer">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <p>&copy; <span id="current-year">2023</span> Pieter-Jan Fockaert. Alle rechten voorbehouden.</p>
-      </div>
-      <div class="col-md-6 text-md-end">
-        <div class="footer-social">
-          <a href="#"><i class="bi bi-linkedin"></i></a>
-          <a href="#"><i class="bi bi-github"></i></a>
-          <a href="#"><i class="bi bi-twitter"></i></a>
-          <a href="#"><i class="bi bi-instagram"></i></a>
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<!-- Back to top button -->
-<a href="#" class="back-to-top"><i class="bi bi-arrow-up"></i></a>
-
-<!-- Bootstrap JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/js/bootstrap.bundle.min.js"></script>
-
-<!-- Custom JS -->
-<script>
-  // Sticky Navbar
-  window.addEventListener('scroll', function() {
-    const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 50) {
-      navbar.classList.add('scrolled');
-    } else {
-      navbar.classList.remove('scrolled');
-    }
-  });
-  
-  // Back to top button
-  window.addEventListener('scroll', function() {
-    const backToTop = document.querySelector('.back-to-top');
-    if (window.scrollY > 300) {
-      backToTop.classList.add('active');
-    } else {
-      backToTop.classList.remove('active');
-    }
-  });
-  
-  // Set current year in footer
-  document.getElementById('current-year').textContent = new Date().getFullYear();
-  
-  // Smooth scrolling for anchor links
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      e.preventDefault();
-      
-      const targetId = this.getAttribute('href');
-      if (targetId === '#') return;
-      
-      const targetElement = document.querySelector(targetId);
-      if (targetElement) {
-        window.scrollTo({
-          top: targetElement.offsetTop - 70,
-          behavior: 'smooth'
-        });
-        
-        // Update active nav link
-        document.querySelectorAll('.nav-link').forEach(link => {
-          link.classList.remove('active');
-        });
-        this.classList.add('active');
-      }
-    });
-  });
-  
-  // Set active nav link on scroll
-  window.addEventListener('scroll', function() {
-    const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('.nav-link');
-    
-    let currentSection = '';
-    
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop - 100;
-      const sectionHeight = section.offsetHeight;
-      
-      if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
-        currentSection = section.getAttribute('id');
-      }
-    });
-    
-    navLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === `#${currentSection}`) {
-        link.classList.add('active');
-      }
-    });
-  });
 </script>
